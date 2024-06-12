@@ -1,3 +1,6 @@
+let userScore = 0;
+let computerScore = 0;
+
 function database(computer_pick, user_pick) {
     const rps_data = {
         rock: { rock: 0.5, paper: 0, scissors: 1 },
@@ -26,13 +29,30 @@ function getIconClass(pick) {
     }
 }
 
+function playSound(effect) {
+    const audio = new Audio(effect);
+    audio.play().catch(error => {
+        console.error(`Error playing sound: ${error}`);
+    });
+}
+
+function updateScore(result) {
+    if (result === 1) {
+        userScore++;
+        document.getElementById('user-score').textContent = userScore;
+    } else if (result === 0) {
+        computerScore++;
+        document.getElementById('computer-score').textContent = computerScore;
+    }
+}
+
 function displayResult(computer_pick, user_pick) {
     const answerElem = document.querySelector("#answer");
     const userElem = document.querySelector("#user");
     const computerElem = document.querySelector("#computer");
 
-    userElem.className = getIconClass(user_pick) + ' fa-3x';
-    computerElem.className = getIconClass(computer_pick) + ' fa-3x';
+    userElem.className = getIconClass(user_pick) + ' fa-3x fade-in';
+    computerElem.className = getIconClass(computer_pick) + ' fa-3x fade-in';
 
     const result = database(computer_pick, user_pick);
 
@@ -40,23 +60,28 @@ function displayResult(computer_pick, user_pick) {
         answerElem.textContent = "You Won!";
         answerElem.classList.add('text-success');
         answerElem.classList.remove('text-danger', 'text-warning');
+        playSound('win.wav');
     } else if (result === 0) {
         answerElem.textContent = "You Lost!";
         answerElem.classList.add('text-danger');
         answerElem.classList.remove('text-success', 'text-warning');
+        playSound('lose.wav');
     } else {
         answerElem.textContent = "It's a Draw!";
         answerElem.classList.add('text-warning');
         answerElem.classList.remove('text-success', 'text-danger');
+        playSound('draw.wav');
     }
+
+    updateScore(result);
 }
 
 function playgame(element) {
     const user_pick = element.id;
     const computer_pick = computer_choice();
 
-    console.log(`User pick: ${user_pick}`);
-    console.log(`Computer pick: ${computer_pick}`);
-
     displayResult(computer_pick, user_pick);
 }
+
+// Ensure playgame function is accessible
+window.playgame = playgame;
