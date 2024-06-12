@@ -1,67 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors Game</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+    <link rel="stylesheet" href="Css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body class="day-theme">
+    <header>
+    <h1>Rock Paper Scissors</h1>
+    <div class="button-container">
+        <button id="settings-button" class="btn"><i class="fas fa-cog"></i></button>
+        <button id="info-button" class="btn"><i class="fas fa-info-circle"></i></button>
+    </div>
+</header>
 
-    <div class="text-center my-5">
-        <h1 class="display-4">Rock Paper Scissors</h1>
-        <p class="lead">JS Version By Sharan Vasoya</p>
+
+    <div class="container">
+      <div id="game-area" class="game-area">
+        <div class="difficulty-level">
+          Level: <span id="selected-difficulty">Easy</span>
+        </div>
+        <!-- Added difficulty level display -->
+        <div class="result">
+          <div id="user" class="choice"></div> 
+          <div id="answer" class="result-text">Make Your Choice</div> 
+          <div id="computer" class="choice"></div>
+        </div>
+        <div class="player-buttons">
+          <button class="btn" onclick="playGame('rock')">
+            <i class="fas fa-hand-rock"></i> Rock
+          </button>
+          <button class="btn" onclick="playGame('paper')">
+            <i class="fas fa-hand-paper"></i> Paper
+          </button>
+          <button class="btn" onclick="playGame('scissors')">
+            <i class="fas fa-hand-scissors"></i> Scissors
+          </button>
+        </div>
+        <div class="score-board">
+          <div>Player Score: <span id="user-score">0</span></div>
+          <div>Computer Score: <span id="computer-score">0</span></div>
+        </div>
+      </div>
     </div>
 
-    <div class="scoreboard text-center mb-4">
-        <div class="d-inline-block mx-3">
-            <h2>User Score: <span id="user-score">0</span></h2>
+    <div id="settings-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Settings</h2>
+        <div class="settings-group">
+          <label for="multiplayer">Multiplayer Mode:</label>
+          <select id="multiplayer">
+            <option value="single">Comming Soon</option>
+            <!-- <option value="multi">Multiplayer</option> -->
+          </select>
         </div>
-        <div class="d-inline-block mx-3">
-            <h2>Computer Score: <span id="computer-score">0</span></h2>
+        <div class="settings-group">
+          <label for="difficulty">Difficulty:</label>
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
         </div>
+        <div class="settings-group">
+          <label for="theme">Theme:</label>
+          <select id="theme">
+            <option value="day-theme">Comming Soon</option>
+            <!-- <option value="night-theme">Black</option>
+              <option value="blue-theme">Blue</option>
+              <option value="green-theme">Green</option> -->
+          </select>
+        </div>
+        <div class="settings-group">
+     <label for="bg-music-toggle">Background Music:</label>
+     <div class="toggle">
+         <input type="checkbox" id="bg-music-toggle" class="toggle-input" checked>
+         <label for="bg-music-toggle" class="toggle-label"></label>
+     </div>
+     <p>this bg music is only for testing</p>
+ </div>
+      </div>
     </div>
 
-    <div class="text-center mb-4">
-        <h2>User</h2>
-        <div class="btn-group" role="group" aria-label="User choices">
-            <button id="rock" class="btn btn-outline-primary" onclick="playgame(this)">
-                <i class="fas fa-hand-rock fa-3x"></i>
-            </button>
-            <button id="paper" class="btn btn-outline-primary" onclick="playgame(this)">
-                <i class="fas fa-hand-paper fa-3x"></i>
-            </button>
-            <button id="scissors" class="btn btn-outline-primary" onclick="playgame(this)">
-                <i class="fas fa-hand-scissors fa-3x"></i>
-            </button>
-        </div>
+    <div id="info-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Tips & Rules</h2>
+        <p>Rock beats Scissors, Scissors beats Paper, Paper beats Rock.</p>
+        <p>Try to predict your opponent's next move!</p>
+      </div>
     </div>
 
-    <hr class="w-75">
+    <audio id="win-sound" src="Audio/win.wav"></audio>
+    <audio id="lose-sound" src="Audio/lose.wav"></audio>
+    <audio id="draw-sound" src="Audio/draw.wav"></audio>
+    <audio id="bg-music-audio" src="Audio/background.mpeg" loop autoplay></audio>
 
-    <div class="text-center mb-4">
-        <h2>Result</h2>
-    </div>
-
-    <div class="result-container d-flex justify-content-center align-items-center">
-        <div class="result-item">
-            <i id="user" class="fa-3x"></i>
-        </div>
-        <div class="result-item mx-4">
-            <h3 id="answer" class="display-4"></h3>
-        </div>
-        <div class="result-item">
-            <i id="computer" class="fa-3x"></i>
-        </div>
-    </div>
-
-    <!-- Place script at the end of the body -->
     <script src="index.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+  </body>
 </html>

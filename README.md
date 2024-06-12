@@ -42,7 +42,7 @@ To run this project locally, follow these steps:
 
 ## Screenshots
 
-![Game Screenshot](screenshot.png)
+![Game Screenshot](images/screenshot.png)
 
 ## Contributing
 
