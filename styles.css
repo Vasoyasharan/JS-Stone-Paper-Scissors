@@ -1,0 +1,18 @@
+body {
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+#answer {
+    font-weight: bold;
+}
+
+.btn-outline-primary:hover {
+    background-color: #556cd6;
+    color: #fff;
+}
