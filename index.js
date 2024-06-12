@@ -13,13 +13,26 @@ function computer_choice() {
     return choices[choice];
 }
 
-function answer(computer_pick, user_pick) {
-    const answerElem = document.querySelector("#answer");
-    const user_img = document.querySelector("#user");
-    const computer_img = document.querySelector("#computer");
+function getIconClass(pick) {
+    switch (pick) {
+        case 'rock':
+            return 'fas fa-hand-rock';
+        case 'paper':
+            return 'fas fa-hand-paper';
+        case 'scissors':
+            return 'fas fa-hand-scissors';
+        default:
+            return '';
+    }
+}
 
-    user_img.src = `${user_pick}.jpg`;
-    computer_img.src = `${computer_pick}.jpg`;
+function displayResult(computer_pick, user_pick) {
+    const answerElem = document.querySelector("#answer");
+    const userElem = document.querySelector("#user");
+    const computerElem = document.querySelector("#computer");
+
+    userElem.className = getIconClass(user_pick) + ' fa-3x';
+    computerElem.className = getIconClass(computer_pick) + ' fa-3x';
 
     const result = database(computer_pick, user_pick);
 
@@ -45,5 +58,5 @@ function playgame(element) {
     console.log(`User pick: ${user_pick}`);
     console.log(`Computer pick: ${computer_pick}`);
 
-    answer(computer_pick, user_pick);
+    displayResult(computer_pick, user_pick);
 }

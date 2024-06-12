@@ -13,7 +13,7 @@ This is a simple Rock Paper Scissors game implemented using HTML, CSS, and JavaS
 
 ## Demo
 
-You can play the game live [here](https://your-demo-link.com).
+You can play the game live [here](https://vasoyasharan.github.io/JS-Stone-Paper-Scissors/).
 
 ## Features
 
